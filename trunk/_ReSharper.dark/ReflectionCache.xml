@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Assemblies Version="1073741836">
+  <Assembly Name="JetBrains.Annotations, Version=4.1.933.3, Culture=neutral, PublicKeyToken=1010a0d8d6380325" Image="0fbe0320-1d7a-415a-b21b-e052d5c165b6" Timestamp="633559886920000000" XmlDocIndexTimestamp="633559886920000000" />
+  <Assembly Name="libtcodWrapper\, Version\=0.2.1.0\, Culture\=neutral\, PublicKeyToken\=null, Version=0.2.1.0, Culture=neutral" Image="b38d14d3-f07c-4ab3-b682-2e7de366680f" Timestamp="633592637840000000" />
+  <Assembly Name="FSharp.PowerPack, Version=1.9.6.2, Culture=neutral, PublicKeyToken=a19089b1c74d0809" Image="50fcbedf-f110-4d63-84e1-e184996489ba" Timestamp="633561488400000000" XmlDocIndexTimestamp="633561477320000000" />
+  <Assembly Name="FSharp.PowerPack\, Version\=1.9.6.2\, Culture\=neutral\, PublicKeyToken\=a19089b1c74d0809, Version=1.9.6.2, Culture=neutral, PublicKeyToken=null" Image="8ad617ef-c883-4b9b-814e-445ef10828ca" Timestamp="633561488400000000" XmlDocIndexTimestamp="633561477320000000" />
+  <Assembly Name="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Image="c9242ff2-81c1-4798-af2f-7e16c82abbe4" Timestamp="633300733580000000" XmlDocIndexTimestamp="633265215640000000" />
+</Assemblies>
