@@ -37,6 +37,9 @@ namespace dark
             session.World
             
         let generate width height = 
+            let x = RootConsole.GetInstance()
+            let y = RootConsole.GetNewConsole(width, height)
+            
             let s = {
                 RootConsole = RootConsole.GetInstance();
                 Console = RootConsole.GetNewConsole(width, height);

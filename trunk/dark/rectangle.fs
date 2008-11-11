@@ -34,7 +34,7 @@ namespace dark
             
         let get_bottom rect = 
             (get_y rect) + (get_height rect) - 1
-            
+
         let contains rect x y =
             (x >= (get_left rect)) && (x <= (get_right rect)) && (y >= (get_top rect)) && (y <= (get_bottom rect))
         
@@ -46,3 +46,8 @@ namespace dark
                             for y in (get_top rect1)..(get_bottom rect1) do
                                 yield (x,y)]
             points |> List.exists (fun (x,y) -> contains rect2 x y) 
+
+        let get_points rect = 
+            [for x in (get_left rect)..(get_right rect) do
+                for y in (get_top rect)..(get_bottom rect) do
+                    yield (x,y)]                    
