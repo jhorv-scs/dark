@@ -37,8 +37,7 @@ let rec game_loop session =
     let x = play session
     match Session.get_status x with
     | Terminate -> "" |> ignore
-    | _ -> game_loop x     
-    
+    | _ -> game_loop x         
 
 RootConsole.Width <- 80
 RootConsole.Height <- 50

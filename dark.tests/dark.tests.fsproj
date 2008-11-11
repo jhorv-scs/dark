@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{a872bf6c-3596-4aee-8332-3da5c2bbc20a}</ProjectGuid>
+    <ProjectGuid>{fe986f56-9f22-4dd2-b417-38f27cb10543}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ProjectHush</RootNamespace>
-    <AssemblyName>dark</AssemblyName>
+    <RootNamespace>dark.tests</RootNamespace>
+    <AssemblyName>dark.tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Name>dark</Name>
+    <Name>dark.tests</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,32 +31,21 @@
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Program.fs" />
-    <Compile Include="common.fs" />
-    <Compile Include="character.fs" />
-    <Compile Include="tile.fs" />
-    <Compile Include="rectangle.fs" />
-    <Compile Include="map.fs" />
-    <Compile Include="world.fs" />
-    <Compile Include="session.fs" />
-    <Compile Include="action.fs" />
-    <Compile Include="dark.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="libtcodWrapper, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null">
-      <Name>libtcodWrapper</Name>
-      <AssemblyName>libtcodWrapper.dll</AssemblyName>
-      <HintPath>..\SharedLibs\libtcodWrapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Name>System.Drawing</Name>
-      <AssemblyName>System.Drawing.dll</AssemblyName>
-    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FsUnit-0.6.1.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dark\dark.fsproj">
+      <Name>dark</Name>
+      <Project>{a872bf6c-3596-4aee-8332-3da5c2bbc20a}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\FSharp\1.0\Microsoft.FSharp.Targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
