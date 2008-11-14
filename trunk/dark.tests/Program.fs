@@ -3,27 +3,15 @@
 open System
 open FsUnit
 open dark
+open dark_tests
 
+let tests = List.concat [ tile_tests.tests();
+                          rectangle_tests.tests();
+                          map_tests.tests() ]
 
-
-
-
-let isEven x = x % 2 = 0
-
-specs "isEven Specs" [
-    spec "0 should be even."
-        (isEven 0 |> should be True)
-    spec "1 should not be even."
-        (isEven 1 |> should be False)
-    spec "2 should be even."
-        (isEven 2 |> should be True)
-    spec "-1 should not be even."
-        (isEven (-1) |> should be False)
-    spec "-2 should be even."
-        (isEven (-2) |> should be True)
-]
-
+specs "dark tests" tests
 printfn "%s" (Results.summary())
+
 
 Console.ReadKey() |> ignore
 

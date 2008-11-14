@@ -24,3 +24,12 @@ namespace dark
             else
                 None
 
+        let list_intersect a b =
+            let setA = Set.of_list a
+            let setB = Set.of_list b
+            Set.to_list (Set.intersect setA setB)
+
+        let list_diff a b =
+            let setA = Set.of_list a
+            let setB = Set.of_list b
+            Set.to_list (Set.diff setA setB)

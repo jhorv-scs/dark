@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "dark", "dark\dark.fsproj", "{A872BF6C-3596-4AEE-8332-3DA5C2BBC20A}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "dark.tests", "dark.tests\dark.tests.fsproj", "{FE986F56-9F22-4DD2-B417-38F27CB10543}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "dark_tests", "dark.tests\dark_tests.fsproj", "{FE986F56-9F22-4DD2-B417-38F27CB10543}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
