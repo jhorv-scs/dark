@@ -15,20 +15,20 @@ namespace dark
         | Map of MapObject
 
     module MapInternal = 
-        type Room = {
+        (*type Room = {
             x : int;
             y : int;
             Height : int;
-            Width : int;}
+            Width : int;}*)
         
         type MapBuild = {
             Width : int;
             Height : int;
             Tiles : Tile list;
-            Rooms : Rectangle list;
-            Corridors : Rectangle list;
-            Connectors : Rectangle list;}
-            //Connections : Map<int*int,Rectangle list>}
+            Rooms : Room list;
+            Corridors : Room list;
+            Connectors : Room list;}
+            //Connections : Map<int*int,Room list>}
                         
         type Direction = 
             | Up
@@ -51,8 +51,8 @@ namespace dark
             | true -> convert_f tile
             | false -> tile
             
-        let tile_in_room (room:Rectangle) tile = 
-            Rectangle.contains room (Tile.get_x tile) (Tile.get_y tile)
+        let tile_in_room (room:Room) tile = 
+            Room.contains room (Tile.get_x tile) (Tile.get_y tile)
             
 
         let draw_map (console:RootConsole) tiles =
@@ -81,25 +81,25 @@ namespace dark
             let corridor = mapBuild.Corridors.[r.Next(0, List.length mapBuild.Corridors)]
             match corridor.Width, corridor.Height, r.Next(0,2) with
             | 1,_,0 -> match r.Next(0,3) with
-                       | 0 -> (Rectangle.get_left corridor, Rectangle.get_top corridor, (Rectangle.get_left corridor) - 1, Rectangle.get_top corridor, Left, corridor)
-                       | 1 -> (Rectangle.get_left corridor, Rectangle.get_top corridor, Rectangle.get_left corridor, (Rectangle.get_top corridor) - 1, Up, corridor)
-                       | 2 -> (Rectangle.get_right corridor, Rectangle.get_top corridor, (Rectangle.get_right corridor) + 1, Rectangle.get_top corridor, Right, corridor)
+                       | 0 -> (Room.get_left corridor, Room.get_top corridor, (Room.get_left corridor) - 1, Room.get_top corridor, Left, corridor)
+                       | 1 -> (Room.get_left corridor, Room.get_top corridor, Room.get_left corridor, (Room.get_top corridor) - 1, Up, corridor)
+                       | 2 -> (Room.get_right corridor, Room.get_top corridor, (Room.get_right corridor) + 1, Room.get_top corridor, Right, corridor)
             | 1,_,1 -> match r.Next(0,3) with
-                       | 0 -> (Rectangle.get_left corridor, Rectangle.get_bottom corridor, (Rectangle.get_left corridor) - 1, Rectangle.get_bottom corridor, Left, corridor)
-                       | 1 -> (Rectangle.get_right corridor, Rectangle.get_bottom corridor, (Rectangle.get_right corridor) + 1, Rectangle.get_bottom corridor, Right, corridor)
-                       | 2 -> (Rectangle.get_left corridor, Rectangle.get_bottom corridor, Rectangle.get_left corridor, (Rectangle.get_bottom corridor) + 1, Down, corridor)
+                       | 0 -> (Room.get_left corridor, Room.get_bottom corridor, (Room.get_left corridor) - 1, Room.get_bottom corridor, Left, corridor)
+                       | 1 -> (Room.get_right corridor, Room.get_bottom corridor, (Room.get_right corridor) + 1, Room.get_bottom corridor, Right, corridor)
+                       | 2 -> (Room.get_left corridor, Room.get_bottom corridor, Room.get_left corridor, (Room.get_bottom corridor) + 1, Down, corridor)
             | _,1,0 -> match r.Next(0,3) with
-                       | 0 -> (Rectangle.get_left corridor, Rectangle.get_top corridor, (Rectangle.get_left corridor) - 1, Rectangle.get_top corridor, Left, corridor)
-                       | 1 -> (Rectangle.get_left corridor, Rectangle.get_top corridor, Rectangle.get_left corridor, (Rectangle.get_top corridor) - 1, Up, corridor)
-                       | 2 -> (Rectangle.get_left corridor, Rectangle.get_top corridor, Rectangle.get_left corridor, (Rectangle.get_bottom corridor) + 1, Down, corridor)
+                       | 0 -> (Room.get_left corridor, Room.get_top corridor, (Room.get_left corridor) - 1, Room.get_top corridor, Left, corridor)
+                       | 1 -> (Room.get_left corridor, Room.get_top corridor, Room.get_left corridor, (Room.get_top corridor) - 1, Up, corridor)
+                       | 2 -> (Room.get_left corridor, Room.get_top corridor, Room.get_left corridor, (Room.get_bottom corridor) + 1, Down, corridor)
             | _,1,1 -> match r.Next(0,3) with
-                       | 0 -> (Rectangle.get_right corridor, Rectangle.get_top corridor, Rectangle.get_right corridor, (Rectangle.get_top corridor) - 1, Up, corridor)
-                       | 1 -> (Rectangle.get_right corridor, Rectangle.get_top corridor, (Rectangle.get_right corridor) + 1, Rectangle.get_top corridor, Right, corridor)
-                       | 2 -> (Rectangle.get_right corridor, Rectangle.get_top corridor, Rectangle.get_right corridor, (Rectangle.get_bottom corridor) + 1, Down, corridor)           
+                       | 0 -> (Room.get_right corridor, Room.get_top corridor, Room.get_right corridor, (Room.get_top corridor) - 1, Up, corridor)
+                       | 1 -> (Room.get_right corridor, Room.get_top corridor, (Room.get_right corridor) + 1, Room.get_top corridor, Right, corridor)
+                       | 2 -> (Room.get_right corridor, Room.get_top corridor, Room.get_right corridor, (Room.get_bottom corridor) + 1, Down, corridor)           
         
         let get_corridor_point mapBuild = 
             let corridor = mapBuild.Corridors.[r.Next(0, List.length mapBuild.Corridors)]
-            let x,y,direction = (r.Next(Rectangle.get_left corridor, Rectangle.get_right corridor), r.Next(Rectangle.get_top corridor, Rectangle.get_bottom corridor), get_direction())
+            let x,y,direction = (r.Next(Room.get_left corridor, Room.get_right corridor), r.Next(Room.get_top corridor, Room.get_bottom corridor), get_direction())
             
             match direction with
             | Up    -> (x,y,x,y - 1,direction, corridor)
@@ -122,10 +122,10 @@ namespace dark
             let direction = get_direction()
             
             let x,y = match direction with
-                      | Up    -> (r.Next(Rectangle.get_left room, Rectangle.get_right room), Rectangle.get_top room)
-                      | Right -> (Rectangle.get_right room, r.Next(Rectangle.get_top room, Rectangle.get_bottom room))            
-                      | Down  -> (r.Next(Rectangle.get_left room, Rectangle.get_right room), Rectangle.get_bottom room)
-                      | Left  -> (Rectangle.get_left room, r.Next(Rectangle.get_top room, Rectangle.get_bottom room))            
+                      | Up    -> (r.Next(Room.get_left room, Room.get_right room), Room.get_top room)
+                      | Right -> (Room.get_right room, r.Next(Room.get_top room, Room.get_bottom room))            
+                      | Down  -> (r.Next(Room.get_left room, Room.get_right room), Room.get_bottom room)
+                      | Left  -> (Room.get_left room, r.Next(Room.get_top room, Room.get_bottom room))            
                       
             match direction with
             | Up    -> (x,y,x,y - 1,direction, room)
@@ -133,15 +133,15 @@ namespace dark
             | Down  -> (x,y,x,y + 1,direction, room)
             | Left  -> (x,y,x - 1,y,direction, room)
 
-        let test_room mapBuild (room:Rectangle) = 
-            let testRoom = Rectangle.inflate room 1 1 
+        let test_room mapBuild (room:Room) = 
+            let testRoom = Room.inflate room 1 1 
 
-            let testerFun = (List.exists (fun r -> Rectangle.intersects_with testRoom r))
+            let testerFun = (List.exists (fun r -> Room.intersects_with testRoom r))
             
-            ((Rectangle.get_left room) > 1) 
-            && ((Rectangle.get_top room) > 1) 
-            && ((Rectangle.get_right room) < mapBuild.Width) 
-            && ((Rectangle.get_bottom  room) < mapBuild.Height) 
+            ((Room.get_left room) > 1) 
+            && ((Room.get_top room) > 1) 
+            && ((Room.get_right room) < mapBuild.Width) 
+            && ((Room.get_bottom  room) < mapBuild.Height) 
             && not(testerFun mapBuild.Rooms) 
             && not(testerFun mapBuild.Corridors)
             && not(testerFun mapBuild.Connectors)
@@ -204,27 +204,27 @@ namespace dark
             let possiblePoints = Set.of_list ([for a in (x-1)..(x+1) do
                                                  for b in (y-1)..(y+1) do
                                                     yield (a,b)])
-            let corridorPoints = Set.of_list (Rectangle.get_points corridor)
+            let corridorPoints = Set.of_list (Room.get_points corridor)
             let points = Set.diff possiblePoints corridorPoints
             let rooms = mapBuild.Rooms @ mapBuild.Corridors @ mapBuild.Connectors
-            Set.exists (fun p -> List.exists (fun r -> Rectangle.contains r (fst p) (snd p)) rooms) points
+            Set.exists (fun p -> List.exists (fun r -> Room.contains r (fst p) (snd p)) rooms) points
 
         let room_containing_point x y mapBuild = 
             let rooms = mapBuild.Rooms @ mapBuild.Corridors @ mapBuild.Connectors
-            List.tryfind (fun r -> Rectangle.contains r x y) rooms
+            List.tryfind (fun r -> Room.contains r x y) rooms
 
         let is_dead_end c mapBuild=
-            let big_c = Rectangle.inflate c 1 1
-            let around_points = Rectangle.get_points_around c 1
+            let big_c = Room.inflate c 1 1
+            let around_points = Room.get_points_around c 1
             List.length (List.choose (fun (x,y) -> room_containing_point x y mapBuild) around_points) < 2
             
         let trim_dead_ends mapBuild =
             let rec helper mapBuild = 
                 let dead_ends = List.filter (fun c -> is_dead_end c mapBuild) mapBuild.Corridors
                 let dead_points = List.concat [for c in dead_ends do
-                                                yield (Rectangle.get_points_around c 1)]
+                                                yield (Room.get_points_around c 1)]
                                     
-                let dead_connectors = List.filter (fun con -> List.exists (fun (x,y) -> Rectangle.contains con x y) dead_points) mapBuild.Connectors
+                let dead_connectors = List.filter (fun con -> List.exists (fun (x,y) -> Room.contains con x y) dead_points) mapBuild.Connectors
                 match List.length dead_ends with
                 | 0 -> mapBuild
                 | _ -> let new_corridors = Common.list_diff mapBuild.Corridors dead_ends
@@ -240,8 +240,8 @@ namespace dark
                 | x when x < 100 -> Tile.get_door (Tile.get_x tile) (Tile.get_y tile)
                 
             let rooms = mapBuild.Rooms @ mapBuild.Corridors
-            let test tile = List.exists (fun r -> Rectangle.contains r (Tile.get_x tile) (Tile.get_y tile)) rooms
-            let connectorTest tile = List.exists (fun r -> Rectangle.contains r (Tile.get_x tile) (Tile.get_y tile)) mapBuild.Connectors
+            let test tile = List.exists (fun r -> Room.contains r (Tile.get_x tile) (Tile.get_y tile)) rooms
+            let connectorTest tile = List.exists (fun r -> Room.contains r (Tile.get_x tile) (Tile.get_y tile)) mapBuild.Connectors
             let tiles = mapBuild.Tiles 
                         |> List.map (convert_tile test (fun t -> Tile.get_floor (Tile.get_x t) (Tile.get_y t)))                   
                         |> List.map (convert_tile connectorTest get_connector_tile)
@@ -296,5 +296,12 @@ namespace dark
                         
         let is_empty map = 
             MapInternal.map_test (fun () -> false) (fun x -> true) map
+            
+        let update_tile old_tile new_tile map =
+            match map with
+            | Empty  -> Empty
+            | Map(m) -> let tiles = List.map (fun t -> match t = old_tile with | true -> new_tile | false -> t) (get_tiles map)
+                        Map({m with Tiles = tiles})
+            
             
         
