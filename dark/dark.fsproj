@@ -35,7 +35,7 @@
     <Compile Include="common.fs" />
     <Compile Include="character.fs" />
     <Compile Include="tile.fs" />
-    <Compile Include="rectangle.fs" />
+    <Compile Include="room.fs" />
     <Compile Include="map.fs" />
     <Compile Include="world.fs" />
     <Compile Include="session.fs" />

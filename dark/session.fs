@@ -34,8 +34,8 @@ namespace dark
             session.Status
             
         let get_world session = 
-            session.World
-            
+            session.World       
+        
         let generate width height = 
             let x = RootConsole.GetInstance()
             let y = RootConsole.GetNewConsole(width, height)
@@ -52,3 +52,8 @@ namespace dark
             match (Map.get_empty_tile m) with
             | None -> failwith "No Empty Tiles to Start Player in"
             | Some(t) -> {s with CurrentMap = m; Player = {s.Player with x = (Tile.get_x t); y = (Tile.get_y t)}}               
+            
+        let update_current_map session map =
+            let world = get_world session
+            let new_map = World.get_map world
+            {session with CurrentMap = map; World = {world with Map = new_map}}

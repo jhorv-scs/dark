@@ -3,16 +3,16 @@
 namespace dark
     open dark
     
-    type Rectangle = { 
+    type Room = { 
         X : int;
         Y : int;
         Width : int;
         Height : int;}
-        //ConnectedTo : Rectangle list}
-        //ConnectedTo : ResizeArray<Rectangle>}
+        //ConnectedTo : Room list}
+        //ConnectedTo : ResizeArray<Room>}
 
     [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]   
-    module Rectangle =
+    module Room =
         let get_x rect = 
             rect.X
             
@@ -61,5 +61,5 @@ namespace dark
             let big_rect_points = Set.of_list(get_points big_rect)
             Set.to_list(Set.diff big_rect_points rect_points)
             
-        //let get_connected_rectangles rect =
+        //let get_connected_Rooms rect =
         //    rect.ConnectedTo                    
